@@ -43,6 +43,7 @@ has term => (
             },
         );
     },
+    handles => ['run'],
 );
 
 sub BUILD {
@@ -50,13 +51,6 @@ sub BUILD {
 
     die "Appending is not currently supported"
         if $self->append;
-}
-
-sub run {
-    my $self = shift;
-    my (@cmd) = @_;
-
-    $self->term->run(@cmd);
 }
 
 __PACKAGE__->meta->make_immutable;
