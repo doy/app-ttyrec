@@ -21,7 +21,10 @@ has ttyrec => (
     is      => 'ro',
     isa     => 'FileHandle',
     lazy    => 1,
-    default => sub { Tie::Handle::TtyRec->new(shift->ttyrec_file) },
+    default => sub {
+        my $self = shift;
+        Tie::Handle::TtyRec->new($self->ttyrec_file, append => $self->append)
+    },
 );
 
 has term => (
@@ -46,13 +49,6 @@ has term => (
     },
     handles => ['run'],
 );
-
-sub BUILD {
-    my $self = shift;
-
-    die "Appending is not currently supported"
-        if $self->append;
-}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
