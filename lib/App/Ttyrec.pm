@@ -29,14 +29,15 @@ has term => (
     isa     => 'Term::Filter',
     lazy    => 1,
     default => sub {
-        my $self = shift;
-        weaken(my $weakself = $self);
+        my $_self = shift;
+        weaken(my $self = $_self);
         Term::Filter->new(
             callbacks => {
                 munge_output => sub {
-                    my ($event, $got) = @_;
+                    my $term = shift;
+                    my ($got) = @_;
 
-                    print { $weakself->ttyrec } $got;
+                    syswrite $self->ttyrec, $got;
 
                     $got;
                 },
