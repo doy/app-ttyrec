@@ -3,7 +3,7 @@ use Moose;
 
 use Scalar::Util 'weaken';
 use Term::Filter;
-use Tie::Handle::TtyRec;
+use Tie::Handle::TtyRec 0.04;
 
 has ttyrec_file => (
     is      => 'ro',
