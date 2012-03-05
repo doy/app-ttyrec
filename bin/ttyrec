@@ -1,6 +1,8 @@
 #!/usr/bin/env perl
 use strict;
 use warnings;
+# ABSTRACT: record interactive terminal sessions
+# PODNAME: ttyrec
 
 use App::Ttyrec;
 use Getopt::Long;
