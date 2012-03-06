@@ -3,8 +3,9 @@ use Moose;
 # ABSTRACT: record interactive terminal sessions
 
 use Scalar::Util 'weaken';
-use Term::Filter;
 use Tie::Handle::TtyRec 0.04;
+
+with 'Term::Filter';
 
 has ttyrec_file => (
     is      => 'ro',
@@ -28,28 +29,14 @@ has ttyrec => (
     },
 );
 
-has term => (
-    is      => 'ro',
-    isa     => 'Term::Filter',
-    lazy    => 1,
-    default => sub {
-        my $_self = shift;
-        weaken(my $self = $_self);
-        Term::Filter->new(
-            callbacks => {
-                munge_output => sub {
-                    my $term = shift;
-                    my ($got) = @_;
+sub munge_output {
+    my $self = shift;
+    my ($got) = @_;
 
-                    syswrite $self->ttyrec, $got;
+    syswrite $self->ttyrec, $got;
 
-                    $got;
-                },
-            },
-        );
-    },
-    handles => ['run'],
-);
+    $got;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
