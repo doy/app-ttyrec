@@ -50,6 +50,8 @@ has append => (
 =attr ttyrec
 
 The L<Tie::Handle::TtyRec> instance used to actually write the ttyrec file.
+Defaults to an instance created based on the values of C<ttyrec_file> and
+C<append>.
 
 =cut
 
