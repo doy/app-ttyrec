@@ -2,7 +2,6 @@ package App::Ttyrec;
 use Moose;
 # ABSTRACT: record interactive terminal sessions
 
-use Scalar::Util 'weaken';
 use Tie::Handle::TtyRec 0.04;
 
 with 'Term::Filter';
